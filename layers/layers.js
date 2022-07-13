@@ -65,15 +65,15 @@ var lyr_zone65_3 = new ol.layer.Vector({
 
 lyr_OSMStandard_0.setVisible(true);lyr_zone32_1.setVisible(true);lyr_Dpartements_2.setVisible(true);lyr_zone65_3.setVisible(true);
 var layersList = [lyr_OSMStandard_0,lyr_zone32_1,lyr_Dpartements_2,lyr_zone65_3];
-lyr_zone32_1.set('fieldAliases', {'NOM': 'NOM', 'SURFACE': 'SURFACE', });
+lyr_zone32_1.set('fieldAliases', {'NOM': 'NOM', });
 lyr_Dpartements_2.set('fieldAliases', {'NOM_DEPT': 'NOM_DEPT', 'INSEE_DEPT': 'INSEE_DEPT', 'SUPERFICIE': 'SUPERFICIE', 'POPULATION': 'POPULATION', 'NOM_REGION': 'NOM_REGION', 'INSEE_REG': 'INSEE_REG', });
 lyr_zone65_3.set('fieldAliases', {'zone': 'zone', });
-lyr_zone32_1.set('fieldImages', {'NOM': 'TextEdit', 'SURFACE': 'TextEdit', });
+lyr_zone32_1.set('fieldImages', {'NOM': 'TextEdit', });
 lyr_Dpartements_2.set('fieldImages', {'NOM_DEPT': 'TextEdit', 'INSEE_DEPT': 'TextEdit', 'SUPERFICIE': 'TextEdit', 'POPULATION': 'TextEdit', 'NOM_REGION': 'TextEdit', 'INSEE_REG': 'TextEdit', });
 lyr_zone65_3.set('fieldImages', {'zone': 'TextEdit', });
-lyr_zone32_1.set('fieldLabels', {'NOM': 'no label', 'SURFACE': 'no label', });
+lyr_zone32_1.set('fieldLabels', {'NOM': 'inline label', 'SURFACE': 'no label', });
 lyr_Dpartements_2.set('fieldLabels', {'NOM_DEPT': 'no label', 'INSEE_DEPT': 'no label', 'SUPERFICIE': 'no label', 'POPULATION': 'no label', 'NOM_REGION': 'no label', 'INSEE_REG': 'no label', });
-lyr_zone65_3.set('fieldLabels', {'zone': 'no label', });
+lyr_zone65_3.set('fieldLabels', {'zone': 'inline label', });
 lyr_zone65_3.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });

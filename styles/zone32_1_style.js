@@ -3,7 +3,7 @@ var placement = 'point';
 function categories_zone32_1(feature, value, size, resolution, labelText,
                        labelFont, labelFill, bufferColor, bufferWidth,
                        placement) {
-                switch(value.toString()) {case 'A':
+                switch(value.toString()) {case 'A32':
                     return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,0.708)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(62,180,219,0.708)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
@@ -11,7 +11,7 @@ function categories_zone32_1(feature, value, size, resolution, labelText,
                               bufferWidth)
     })];
                     break;
-case 'B':
+case 'B32':
                     return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,0.708)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(238,228,169,0.708)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
@@ -19,7 +19,7 @@ case 'B':
                               bufferWidth)
     })];
                     break;
-case 'C':
+case 'C32':
                     return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,0.708)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(168,227,198,0.708)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
@@ -27,7 +27,7 @@ case 'C':
                               bufferWidth)
     })];
                     break;
-case 'D':
+case 'D32':
                     return [ new ol.style.Style({
         stroke: new ol.style.Stroke({color: 'rgba(227,26,28,0.708)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(223,179,248,0.708)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
