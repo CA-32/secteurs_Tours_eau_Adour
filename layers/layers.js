@@ -62,18 +62,35 @@ var lyr_zone65_3 = new ol.layer.Vector({
     <img src="styles/legend/zone65_3_2.png" /> C65<br />\
     <img src="styles/legend/zone65_3_3.png" /> D65<br />'
         });
+var format_isochrone90L93_4 = new ol.format.GeoJSON();
+var features_isochrone90L93_4 = format_isochrone90L93_4.readFeatures(json_isochrone90L93_4, 
+            {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
+var jsonSource_isochrone90L93_4 = new ol.source.Vector({
+    attributions: ' ',
+});
+jsonSource_isochrone90L93_4.addFeatures(features_isochrone90L93_4);
+var lyr_isochrone90L93_4 = new ol.layer.Vector({
+                declutter: true,
+                source:jsonSource_isochrone90L93_4, 
+                style: style_isochrone90L93_4,
+                interactive: true,
+                title: '<img src="styles/legend/isochrone90L93_4.png" /> isochrone 90 L93'
+            });
 
-lyr_OSMStandard_0.setVisible(true);lyr_zone32_1.setVisible(true);lyr_Dpartements_2.setVisible(true);lyr_zone65_3.setVisible(true);
-var layersList = [lyr_OSMStandard_0,lyr_zone32_1,lyr_Dpartements_2,lyr_zone65_3];
+lyr_OSMStandard_0.setVisible(true);lyr_zone32_1.setVisible(true);lyr_Dpartements_2.setVisible(true);lyr_zone65_3.setVisible(true);lyr_isochrone90L93_4.setVisible(true);
+var layersList = [lyr_OSMStandard_0,lyr_zone32_1,lyr_Dpartements_2,lyr_zone65_3,lyr_isochrone90L93_4];
 lyr_zone32_1.set('fieldAliases', {'NOM': 'NOM', });
 lyr_Dpartements_2.set('fieldAliases', {'NOM_DEPT': 'NOM_DEPT', 'INSEE_DEPT': 'INSEE_DEPT', 'SUPERFICIE': 'SUPERFICIE', 'POPULATION': 'POPULATION', 'NOM_REGION': 'NOM_REGION', 'INSEE_REG': 'INSEE_REG', });
 lyr_zone65_3.set('fieldAliases', {'zone': 'zone', });
+lyr_isochrone90L93_4.set('fieldAliases', {'ID': 'ID', 'isochrone': 'isochrone', });
 lyr_zone32_1.set('fieldImages', {'NOM': 'TextEdit', });
 lyr_Dpartements_2.set('fieldImages', {'NOM_DEPT': 'TextEdit', 'INSEE_DEPT': 'TextEdit', 'SUPERFICIE': 'TextEdit', 'POPULATION': 'TextEdit', 'NOM_REGION': 'TextEdit', 'INSEE_REG': 'TextEdit', });
 lyr_zone65_3.set('fieldImages', {'zone': 'TextEdit', });
-lyr_zone32_1.set('fieldLabels', {'NOM': 'inline label', 'SURFACE': 'no label', });
+lyr_isochrone90L93_4.set('fieldImages', {'ID': 'TextEdit', 'isochrone': '', });
+lyr_zone32_1.set('fieldLabels', {'NOM': 'inline label', });
 lyr_Dpartements_2.set('fieldLabels', {'NOM_DEPT': 'no label', 'INSEE_DEPT': 'no label', 'SUPERFICIE': 'no label', 'POPULATION': 'no label', 'NOM_REGION': 'no label', 'INSEE_REG': 'no label', });
 lyr_zone65_3.set('fieldLabels', {'zone': 'inline label', });
-lyr_zone65_3.on('precompose', function(evt) {
+lyr_isochrone90L93_4.set('fieldLabels', {'ID': 'no label', 'isochrone': 'inline label', });
+lyr_isochrone90L93_4.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });
