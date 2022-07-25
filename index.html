@@ -6,66 +6,591 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="./resources/ol.css">
-        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
-        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
-        <link rel="stylesheet" href="./resources/qgis2web.css">
-<style>
-.search-layer {
-  top: 65px;
-  left: .5em;
-}
-.ol-touch .search-layer {
-  top: 80px;
-}
-</style>
-        <style>
-        html, body {
-            background-color: #ffffff;
-        }
-        .ol-control button {
-            background-color: #f8f8f8 !important;
-            color: #000000 !important;
-            border-radius: 0px !important;
-        }
-        .ol-zoom, .geolocate, .gcd-gl-control .ol-control {
-            background-color: rgba(255,255,255,.4) !important;
-            padding: 3px !important;
-        }
-        .ol-scale-line {
-            background: none !important;
-        }
-        .ol-scale-line-inner {
-            border: 2px solid #f8f8f8 !important;
-            border-top: none !important;
-            background: rgba(255, 255, 255, 0.5) !important;
-            color: black !important;
-        }
-        </style>
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 859px;
-            height: 861px;
+            width: 1411px;
+            height: 869px;
         }
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
-            <div id="popup" class="ol-popup">
-                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                <div id="popup-content"></div>
-            </div>
         </div>
-        <script src="resources/qgis2web_expressions.js"></script>
-        <script src="resources/polyfills.js"></script>
-        <script src="./resources/functions.js"></script>
-        <script src="./resources/ol.js"></script>
-        <script src="./resources/ol-layerswitcher.js"></script>
-        <script src="layers/zone32_1.js"></script><script src="layers/Dpartements_2.js"></script><script src="layers/zone65_3.js"></script><script src="layers/isochrone90L93_4.js"></script>
-        <script src="styles/zone32_1_style.js"></script><script src="styles/Dpartements_2_style.js"></script><script src="styles/zone65_3_style.js"></script><script src="styles/isochrone90L93_4_style.js"></script>
-        <script src="./layers/layers.js" type="text/javascript"></script> 
-        <script src="./resources/Autolinker.min.js"></script>
-        <script src="./resources/qgis2web.js"></script>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/zone32_1.js"></script>
+        <script src="data/Dpartements_2.js"></script>
+        <script src="data/zone65_3.js"></script>
+        <script src="data/zoneBARNE_4.js"></script>
+        <script src="data/isochrone90L93_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[43.53833740228933,-0.11882853274802394],[43.65101951560374,0.12403269606207153]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_zone32_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NOM</th>\
+                        <td>' + (feature.properties['NOM'] !== null ? autolinker.link(feature.properties['NOM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_zone32_1_0(feature) {
+            switch(String(feature.properties['NOM'])) {
+                case 'A32':
+                    return {
+                pane: 'pane_zone32_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,0.708)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(62,180,219,0.708)',
+                interactive: true,
+            }
+                    break;
+                case 'B32':
+                    return {
+                pane: 'pane_zone32_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,0.708)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,228,169,0.708)',
+                interactive: true,
+            }
+                    break;
+                case 'C32':
+                    return {
+                pane: 'pane_zone32_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,0.708)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(168,227,198,0.708)',
+                interactive: true,
+            }
+                    break;
+                case 'D32':
+                    return {
+                pane: 'pane_zone32_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,0.708)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,179,248,0.708)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_zone32_1');
+        map.getPane('pane_zone32_1').style.zIndex = 401;
+        map.getPane('pane_zone32_1').style['mix-blend-mode'] = 'normal';
+        var layer_zone32_1 = new L.geoJson(json_zone32_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_zone32_1',
+            layerName: 'layer_zone32_1',
+            pane: 'pane_zone32_1',
+            onEachFeature: pop_zone32_1,
+            style: style_zone32_1_0,
+        });
+        bounds_group.addLayer(layer_zone32_1);
+        map.addLayer(layer_zone32_1);
+        function pop_Dpartements_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_DEPT'] !== null ? autolinker.link(feature.properties['NOM_DEPT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_DEPT'] !== null ? autolinker.link(feature.properties['INSEE_DEPT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUPERFICIE'] !== null ? autolinker.link(feature.properties['SUPERFICIE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['POPULATION'] !== null ? autolinker.link(feature.properties['POPULATION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_REGION'] !== null ? autolinker.link(feature.properties['NOM_REGION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_REG'] !== null ? autolinker.link(feature.properties['INSEE_REG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Dpartements_2_0() {
+            return {
+                pane: 'pane_Dpartements_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Dpartements_2');
+        map.getPane('pane_Dpartements_2').style.zIndex = 402;
+        map.getPane('pane_Dpartements_2').style['mix-blend-mode'] = 'normal';
+        var layer_Dpartements_2 = new L.geoJson(json_Dpartements_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Dpartements_2',
+            layerName: 'layer_Dpartements_2',
+            pane: 'pane_Dpartements_2',
+            onEachFeature: pop_Dpartements_2,
+            style: style_Dpartements_2_0,
+        });
+        bounds_group.addLayer(layer_Dpartements_2);
+        map.addLayer(layer_Dpartements_2);
+        function pop_zone65_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">zone</th>\
+                        <td>' + (feature.properties['zone'] !== null ? autolinker.link(feature.properties['zone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_zone65_3_0(feature) {
+            switch(String(feature.properties['zone'])) {
+                case 'A65':
+                    return {
+                pane: 'pane_zone65_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.702)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(69,33,233,0.702)',
+                interactive: true,
+            }
+                    break;
+                case 'B65':
+                    return {
+                pane: 'pane_zone65_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.702)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,192,96,0.702)',
+                interactive: true,
+            }
+                    break;
+                case 'C65':
+                    return {
+                pane: 'pane_zone65_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.702)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,222,96,0.702)',
+                interactive: true,
+            }
+                    break;
+                case 'D65':
+                    return {
+                pane: 'pane_zone65_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.702)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(182,101,229,0.702)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_zone65_3');
+        map.getPane('pane_zone65_3').style.zIndex = 403;
+        map.getPane('pane_zone65_3').style['mix-blend-mode'] = 'normal';
+        var layer_zone65_3 = new L.geoJson(json_zone65_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_zone65_3',
+            layerName: 'layer_zone65_3',
+            pane: 'pane_zone65_3',
+            onEachFeature: pop_zone65_3,
+            style: style_zone65_3_0,
+        });
+        bounds_group.addLayer(layer_zone65_3);
+        map.addLayer(layer_zone65_3);
+        function pop_zoneBARNE_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>zone barne</strong><br />' + (feature.properties['zone barne'] !== null ? autolinker.link(feature.properties['zone barne'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 270
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.5,
+            spaceWeight: 5.0,
+            color: '#cc5ae5',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 360
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.8,
+            spaceWeight: 2.0,
+            color: '#1ce771',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_zoneBARNE_4_1.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 270
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.5,
+            spaceWeight: 5.0,
+            color: '#cc5ae5',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 360
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        var pattern_zoneBARNE_4_0 = new L.StripePattern({
+            weight: 0.8,
+            spaceWeight: 2.0,
+            color: '#1ce771',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_zoneBARNE_4_0.addTo(map);
+        function style_zoneBARNE_4_0(feature) {
+            switch(String(feature.properties['zone barne'])) {
+                case 'A':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_0,
+                interactive: true,
+            }
+                    break;
+                case 'B':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_0,
+                interactive: true,
+            }
+                    break;
+                case 'C':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_0,
+                interactive: true,
+            }
+                    break;
+                case 'D':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        function style_zoneBARNE_4_1(feature) {
+            switch(String(feature.properties['zone barne'])) {
+                case 'A':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'B':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_zoneBARNE_4_1,
+                interactive: true,
+            }
+                    break;
+                case 'C':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'D':
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_zoneBARNE_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_zoneBARNE_4');
+        map.getPane('pane_zoneBARNE_4').style.zIndex = 404;
+        map.getPane('pane_zoneBARNE_4').style['mix-blend-mode'] = 'normal';
+        var layer_zoneBARNE_4 = new L.geoJson.multiStyle(json_zoneBARNE_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_zoneBARNE_4',
+            layerName: 'layer_zoneBARNE_4',
+            pane: 'pane_zoneBARNE_4',
+            onEachFeature: pop_zoneBARNE_4,
+            styles: [style_zoneBARNE_4_0,style_zoneBARNE_4_1,]
+        });
+        bounds_group.addLayer(layer_zoneBARNE_4);
+        map.addLayer(layer_zoneBARNE_4);
+        function pop_isochrone90L93_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">isochrone</th>\
+                        <td>' + (feature.properties['isochrone'] !== null ? autolinker.link(feature.properties['isochrone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_isochrone90L93_5_0() {
+            return {
+                pane: 'pane_isochrone90L93_5',
+                opacity: 1,
+                color: 'rgba(182,101,229,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_isochrone90L93_5');
+        map.getPane('pane_isochrone90L93_5').style.zIndex = 405;
+        map.getPane('pane_isochrone90L93_5').style['mix-blend-mode'] = 'normal';
+        var layer_isochrone90L93_5 = new L.geoJson(json_isochrone90L93_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_isochrone90L93_5',
+            layerName: 'layer_isochrone90L93_5',
+            pane: 'pane_isochrone90L93_5',
+            onEachFeature: pop_isochrone90L93_5,
+            style: style_isochrone90L93_5_0,
+        });
+        bounds_group.addLayer(layer_isochrone90L93_5);
+        map.addLayer(layer_isochrone90L93_5);
+        setBounds();
+        var i = 0;
+        layer_zoneBARNE_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((exp_label_zoneBARNE_4_eval_expression(context) !== null?String('<div style="color: #000000; font-size: 14pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + exp_label_zoneBARNE_4_eval_expression(context)) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_zoneBARNE_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_zoneBARNE_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_zoneBARNE_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_zoneBARNE_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_zoneBARNE_4]);
+        });
+        </script>
     </body>
 </html>
