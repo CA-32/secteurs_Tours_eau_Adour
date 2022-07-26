@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 1411px;
+            width: 1267px;
             height: 869px;
         }
         </style>
@@ -33,11 +33,12 @@
         <script src="data/Dpartements_2.js"></script>
         <script src="data/zone65_3.js"></script>
         <script src="data/zoneBARNE_4.js"></script>
-        <script src="data/isochrone90L93_5.js"></script>
+        <script src="data/ZONE65A32_5.js"></script>
+        <script src="data/isochrone90L93_6.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[43.53833740228933,-0.11882853274802394],[43.65101951560374,0.12403269606207153]]);
+        }).fitBounds([[43.43794800755172,-0.18152901248220987],[43.66183385163549,0.2552258107330587]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -181,7 +182,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(229,182,54,0.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_Dpartements_2');
@@ -189,7 +190,7 @@
         map.getPane('pane_Dpartements_2').style['mix-blend-mode'] = 'normal';
         var layer_Dpartements_2 = new L.geoJson(json_Dpartements_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Dpartements_2',
             layerName: 'layer_Dpartements_2',
             pane: 'pane_Dpartements_2',
@@ -525,7 +526,46 @@
         });
         bounds_group.addLayer(layer_zoneBARNE_4);
         map.addLayer(layer_zoneBARNE_4);
-        function pop_isochrone90L93_5(feature, layer) {
+        function pop_ZONE65A32_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">zonage</th>\
+                        <td>' + (feature.properties['zonage'] !== null ? autolinker.link(feature.properties['zonage'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ZONE65A32_5_0() {
+            return {
+                pane: 'pane_ZONE65A32_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(141,90,153,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ZONE65A32_5');
+        map.getPane('pane_ZONE65A32_5').style.zIndex = 405;
+        map.getPane('pane_ZONE65A32_5').style['mix-blend-mode'] = 'normal';
+        var layer_ZONE65A32_5 = new L.geoJson(json_ZONE65A32_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ZONE65A32_5',
+            layerName: 'layer_ZONE65A32_5',
+            pane: 'pane_ZONE65A32_5',
+            onEachFeature: pop_ZONE65A32_5,
+            style: style_ZONE65A32_5_0,
+        });
+        bounds_group.addLayer(layer_ZONE65A32_5);
+        map.addLayer(layer_ZONE65A32_5);
+        function pop_isochrone90L93_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
@@ -538,9 +578,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_isochrone90L93_5_0() {
+        function style_isochrone90L93_6_0() {
             return {
-                pane: 'pane_isochrone90L93_5',
+                pane: 'pane_isochrone90L93_6',
                 opacity: 1,
                 color: 'rgba(182,101,229,1.0)',
                 dashArray: '',
@@ -553,20 +593,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_isochrone90L93_5');
-        map.getPane('pane_isochrone90L93_5').style.zIndex = 405;
-        map.getPane('pane_isochrone90L93_5').style['mix-blend-mode'] = 'normal';
-        var layer_isochrone90L93_5 = new L.geoJson(json_isochrone90L93_5, {
+        map.createPane('pane_isochrone90L93_6');
+        map.getPane('pane_isochrone90L93_6').style.zIndex = 406;
+        map.getPane('pane_isochrone90L93_6').style['mix-blend-mode'] = 'normal';
+        var layer_isochrone90L93_6 = new L.geoJson(json_isochrone90L93_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_isochrone90L93_5',
-            layerName: 'layer_isochrone90L93_5',
-            pane: 'pane_isochrone90L93_5',
-            onEachFeature: pop_isochrone90L93_5,
-            style: style_isochrone90L93_5_0,
+            dataVar: 'json_isochrone90L93_6',
+            layerName: 'layer_isochrone90L93_6',
+            pane: 'pane_isochrone90L93_6',
+            onEachFeature: pop_isochrone90L93_6,
+            style: style_isochrone90L93_6_0,
         });
-        bounds_group.addLayer(layer_isochrone90L93_5);
-        map.addLayer(layer_isochrone90L93_5);
+        bounds_group.addLayer(layer_isochrone90L93_6);
+        map.addLayer(layer_isochrone90L93_6);
         setBounds();
         var i = 0;
         layer_zoneBARNE_4.eachLayer(function(layer) {
